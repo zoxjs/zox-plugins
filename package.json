@@ -1,0 +1,27 @@
+{
+  "name": "zox-plugins",
+  "version": "1.0.0",
+  "description": "Plugin management system",
+  "author": "Zoran Ravic <contact@zoranravic.com> (zoranravic.com)",
+  "license": "MIT",
+  "repository": "zoxjs/zox-plugins",
+  "homepage": "http://zox.zoranravic.com/",
+  "main": "index.js",
+  "files": [
+    "LICENSE",
+    "Readme.md",
+    "index.js",
+    "index.d.ts"
+  ],
+  "keywords": [
+    "plugin",
+    "plugins",
+    "manage",
+    "system",
+    "discovery",
+    "oop"
+  ],
+  "devDependencies": {
+    "@types/node": "^10.5.1"
+  }
+}

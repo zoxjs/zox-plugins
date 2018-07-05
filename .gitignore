@@ -1,0 +1,10 @@
+# Editor & IDE settings
+.idea/*
+
+# Node modules
+node_modules/*
+
+# Compiled
+**/*.d.ts
+**/*.js
+**/*.js.map
