@@ -152,7 +152,7 @@ export class PluginDiscovery implements IPluginDiscovery
                 {
                     if (dir[0] !== '@')
                     {
-                        await this.scanProject(dir);
+                        await this.scanProject(path.join('node_modules', dir));
                     }
                     else
                     {
@@ -162,7 +162,7 @@ export class PluginDiscovery implements IPluginDiscovery
                             const dirs = await readdirAsync(namespacePath);
                             for (const dir of dirs)
                             {
-                                await this.scanProject(dir);
+                                await this.scanProject(path.join('node_modules', dir));
                             }
                         }
                         catch(e){}
