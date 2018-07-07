@@ -1,6 +1,6 @@
 {
   "name": "zox-plugins",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Plugin management system",
   "author": "Zoran Ravic <contact@zoranravic.com> (zoranravic.com)",
   "license": "MIT",
