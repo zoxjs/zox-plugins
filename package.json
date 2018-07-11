@@ -5,7 +5,7 @@
   "author": "Zoran Ravic <contact@zoranravic.com> (zoranravic.com)",
   "license": "MIT",
   "repository": "zoxjs/zox-plugins",
-  "homepage": "http://https://zoxjs.github.io/docs/plugins",
+  "homepage": "http://zoxjs.com/docs/plugins",
   "main": "index.js",
   "files": [
     "LICENSE",
