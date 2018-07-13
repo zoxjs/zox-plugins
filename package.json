@@ -23,5 +23,8 @@
   ],
   "devDependencies": {
     "@types/node": "^10.5.1"
+  },
+  "scripts": {
+    "prepublishOnly": "tsc"
   }
 }
