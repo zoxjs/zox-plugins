@@ -15,7 +15,7 @@ export class AddPlugin implements IMathPlugin
 }
 ```
 
-Scan the entire project, a directory, a .js file or just a single class:
+Scan the entire project, a directory, a .js file or just a single class or function:
 
 ```js
 const pluginDiscovery = new PluginDiscovery();
@@ -23,6 +23,12 @@ await pluginDiscovery.scanProject();
 await pluginDiscovery.scanDirectory('Plugins');
 pluginDiscovery.scanModule(require('./Plugins/AddPlugin'));
 pluginDiscovery.scan(AddPlugin);
+```
+
+Individual plugins can also be manually added:
+
+```js
+pluginDiscovery.scan(pluginkey, AddPlugin, /* optional data */);
 ```
 
 Access all plugins of the same type using their pluginkey:

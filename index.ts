@@ -13,7 +13,7 @@ export type PluginDefinition<TPlugin = any, TData = any> = {
     data: TData
 }
 
-export type Constructor<T> = { new (...args): T };
+export type Constructor<T> = { new (...args): T }
 
 export interface IPluginSource
 {
@@ -22,7 +22,8 @@ export interface IPluginSource
 
 export interface IPluginDiscovery extends IPluginSource
 {
-    scan(obj: any): void
+    add(pluginKey: symbol, plugin: any, data: any): void;
+    scan(obj: any): void;
     scanModule(moduleExports: any): void;
     scanDirectory(directory: string): Promise<void>;
     scanProject(directory: string): Promise<void>;
@@ -34,6 +35,18 @@ export class PluginDiscovery implements IPluginDiscovery
 {
     private plugins: { [pluginKey:string]: Array<PluginDefinition> } = {};
 
+    public add(pluginKey: symbol, plugin: any, data?: any): void
+    {
+        if (!this.plugins.hasOwnProperty(pluginKey))
+        {
+            this.plugins[pluginKey as any] = [];
+        }
+        this.plugins[pluginKey as any].push({
+            pluginClass: plugin,
+            data: data,
+        });
+    }
+
     public scan(obj: any): void
     {
         if (obj.hasOwnProperty(pluginsKey))
@@ -43,11 +56,11 @@ export class PluginDiscovery implements IPluginDiscovery
             {
                 if (!this.plugins.hasOwnProperty(pluginKey))
                 {
-                    this.plugins[pluginKey] = [];
+                    this.plugins[pluginKey as any] = [];
                 }
                 for (const pluginData of obj[pluginsKey][pluginKey])
                 {
-                    this.plugins[pluginKey].push({
+                    this.plugins[pluginKey as any].push({
                         pluginClass: obj,
                         data: pluginData,
                     });
@@ -175,7 +188,7 @@ export class PluginDiscovery implements IPluginDiscovery
 
     public getPlugins(pluginKey: symbol): Array<PluginDefinition>
     {
-        return this.plugins.hasOwnProperty(pluginKey) ? this.plugins[pluginKey] : [];
+        return this.plugins.hasOwnProperty(pluginKey) ? this.plugins[pluginKey as any] : [];
     }
 
     public clear(): void
@@ -204,7 +217,7 @@ export async function listFilesAsync(directory: string): Promise<Array<string>>
     return files;
 }
 
-export function PluginSetup<T = any, U = any>(name: symbol, data?: U): (pluginClass: Constructor<T>) => void
+export function PluginSetup<T = any, U = any>(pluginKey: symbol, data?: U): (pluginClass: Constructor<T>) => void
 {
     return function(pluginClass)
     {
@@ -212,10 +225,10 @@ export function PluginSetup<T = any, U = any>(name: symbol, data?: U): (pluginCl
         {
             pluginClass[pluginsKey] = {};
         }
-        if (!pluginClass[pluginsKey][name])
+        if (!pluginClass[pluginsKey][pluginKey])
         {
-            pluginClass[pluginsKey][name] = [];
+            pluginClass[pluginsKey][pluginKey] = [];
         }
-        pluginClass[pluginsKey][name].push(data);
+        pluginClass[pluginsKey][pluginKey].push(data);
     }
 }
