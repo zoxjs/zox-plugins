@@ -22,7 +22,7 @@
     "oop"
   ],
   "devDependencies": {
-    "@types/node": "^10.5.1"
+    "@types/node": "^10.14.14"
   },
   "scripts": {
     "prepublishOnly": "tsc"

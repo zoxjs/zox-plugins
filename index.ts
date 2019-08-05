@@ -88,7 +88,18 @@ export class PluginDiscovery implements IPluginDiscovery
         const moduleList = await listFilesAsync(directory);
         for (const modulePath of moduleList)
         {
-            if (path.extname(modulePath) == '.js')
+            if (modulePath.endsWith('.js') ||
+                modulePath.endsWith('.jsx') ||
+                (
+                    modulePath.endsWith('.ts') &&
+                    !modulePath.endsWith('.d.ts') &&
+                    !moduleList.includes(modulePath.substr(0,modulePath.length - 3) + '.js')
+                ) ||
+                (
+                    modulePath.endsWith('.tsx') &&
+                    !moduleList.includes(modulePath.substr(0,modulePath.length - 4) + '.js')
+                )
+            )
             {
                 const modulePathAbs = path.resolve(modulePath);
                 try
